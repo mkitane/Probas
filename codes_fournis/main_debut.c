@@ -316,114 +316,153 @@ int main()
 	init_rand(Kx, Px, NK, NB, 45);
 	KeyExpansion(Kex,Kx); // AES : sous-clefs
 	
+	FILE* fichier = NULL;
+
+
 	
-	/*FILE* fichier = NULL;
-	fichier = fopen("rand_c.txt", "w");
-	if(fichier != NULL)
-	{*/
-		// sorties des generateurs	
-		
-		
-		
-		
-		
-		  //---------------------Test Frequence monobit
-		/*for (i=0; i < NB_IT; i++)
+	//---GENERATION des nombres
+	
+		fichier = fopen("rand_c.txt", "w");
+		if(fichier != NULL)
 		{
-			Test[i] = 619;
+			// sorties des generateurs	
+			for (i=0; i < NB_IT; i++)
+			{
+				output_rand= oldrand(); // Von Neumann
+				fprintf(fichier,"%u\n",output_rand);
+			}
+		}
+		close(fichier);
+		
+		
+		fichier = fopen("VN.txt", "w");
+		if(fichier != NULL)
+		{
+			for (i=0; i < NB_IT; i++)
+			{
+				output_VN = Von_Neumann(&x); // Von Neumann
+				fprintf(fichier,"%u\n",output_VN);
+			}
+		}
+		fclose(fichier);
+		
+		fichier = fopen("MT.txt", "w");
+		if(fichier != NULL)
+		{
+			for (i=0; i < NB_IT; i++)
+			{
+				output_MT = genrand(&mt); // Mersenne-Twister
+				fprintf(fichier,"%u\n",output_MT);
+			}
+		}
+		fclose(fichier);
+		
+		fichier = fopen("AES.txt", "w");
+		if(fichier != NULL)
+		{
+			for (i=0; i < NB_IT; i++)
+			{
+				output_AES = AES(Px, Kex); // AES
+				fprintf(fichier,"%u\n",output_AES);
+			}
+		}
+		fclose(fichier);
+		
+		fichier = fopen("rand_fort.txt", "w");
+		if(fichier != NULL)
+		{
+			for (i=0; i < NB_IT; i++)
+			{
+				output_rand_fort = poidsfort(oldrand());
+				fprintf(fichier,"%u\n",output_rand_fort);
+			}
+		}
+		fclose(fichier);
+		
+		fichier = fopen("rand_faible.txt", "w");
+		if(fichier != NULL)
+		{
+			for (i=0; i < NB_IT; i++)
+			{
+				output_rand_faible = poidsfaible(oldrand());
+				fprintf(fichier,"%u\n",output_rand_faible);
+			}
+		}
+		fclose(fichier);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		
+		
+		//-------------------Generation pour les rands
+	fichier = fopen("tests.txt","w");
+	if(fichier != NULL)
+	{
+	int ij; 
+	for(ij = 0; ij < 20; ij++)
+	{
+		int i; 
+		for (i=0; i < NB_IT; i++)
+		{
 			output_rand = oldrand(); // rand du C
-			//fprintf(fichier,"%u\n",output_rand);
 			tabFort[i] = poidsfort(output_rand);
 			tabFaible[i] = poidsfaible(output_rand);
 			tabVN[i] = Von_Neumann(&x); // Von Neumann
 			tabMT[i] = genrand(&mt); // Mersenne-Twister
 			tabAES[i] = AES(Px, Kex); // AES
-		}*/
+		}
+	
 		
 		
-		
-	/*printf("Von Neumann : %f\n",Frequency(13,tabVN));
-	printf("Mersenne Twister : %f\n",Frequency(32,tabMT));
-	printf("AES : %f\n",Frequency(32,tabAES));
-	printf("4 bits de poids fort : %f\n", Frequency(4,tabFort));
-	printf("4 bits de poids faible : %f\n", Frequency(4,tabFaible));*/
+		//---------------------Test Frequence monobit
+		fprintf(fichier, "\n\n-----Test %d----- \n\n",ij);
+		fprintf(fichier,"\n\n Frequences \n\n");
+		fprintf(fichier,"Frequence Von Neumann : %f\n",Frequency(13,tabVN));
+		fprintf(fichier,"Frequence Mersenne Twister : %f\n",Frequency(32,tabMT));
+		fprintf(fichier,"Frequence AES : %f\n",Frequency(32,tabAES));
+		fprintf(fichier,"Frequence 4 bits de poids fort : %f\n", Frequency(4,tabFort));
+		fprintf(fichier,"Frequence 4 bits de poids faible : %f\n", Frequency(4,tabFaible));
 	
 	
 	
-		//---------------------Test RUN
-	/*printf("Test : %f\n",Run(10,Test));
-	printf("Von Neumann : %f\n",Run(13,tabVN));
-	printf("Mersenne Twister : %f\n",Run(32,tabMT));
-	printf("AES : %f\n",Run(32,tabAES));
-	printf("4 bits de poids fort : %f\n", Run(4,tabFort));
-	printf("4 bits de poids faible : %f\n", Run(4,tabFaible));*/
 	
-	//}
-	/*close(fichier);
-	
-	fichier = fopen("VN.txt", "w");
-	if(fichier != NULL)
-	{
-		for (i=0; i < NBIT; i++)
-		{
-			output_VN = Von_Neumann(&x); // Von Neumann
-			fprintf(fichier,"%u\n",output_VN);
-		}
-	}
-	fclose(fichier);
-	
-	fichier = fopen("MT.txt", "w");
-	if(fichier != NULL)
-	{
-		for (i=0; i < NBIT; i++)
-		{
-			output_MT = genrand(&mt); // Mersenne-Twister
-			fprintf(fichier,"%u\n",output_MT);
-		}
-	}
-	fclose(fichier);
-	
-	fichier = fopen("AES.txt", "w");
-	if(fichier != NULL)
-	{
-		for (i=0; i < NBIT; i++)
-		{
-			output_AES = AES(Px, Kex); // AES
-			fprintf(fichier,"%u\n",output_AES);
-		}
-	}
-	fclose(fichier);
-	
-	fichier = fopen("rand_fort.txt", "w");
-	if(fichier != NULL)
-	{
-		for (i=0; i < NBIT; i++)
-		{
-			output_rand_fort = poidsfort(oldrand());
-			fprintf(fichier,"%u\n",output_rand_fort);
-		}
-	}
-	fclose(fichier);
-	
-	fichier = fopen("rand_faible.txt", "w");
-	if(fichier != NULL)
-	{
-		for (i=0; i < NBIT; i++)
-		{
-			output_rand_faible = poidsfaible(oldrand());
-			fprintf(fichier,"%u\n",output_rand_faible);
-		}
-	}*/
 
+		//---------------------Test RUN
+		fprintf(fichier,"\n\n Run \n\n");
+		fprintf(fichier,"Run Von Neumann : %f\n",Run(13,tabVN));
+		fprintf(fichier,"Run Mersenne Twister : %f\n",Run(32,tabMT));
+		fprintf(fichier,"Run AES : %f\n",Run(32,tabAES));
+		fprintf(fichier,"Run 4 bits de poids fort : %f\n", Run(4,tabFort));
+		fprintf(fichier,"Run 4 bits de poids faible : %f\n", Run(4,tabFaible));
+	}
+	}
+	fclose(fichier);
+
+	
 	// affichage
-	/*printf("- Generation de nombres aleatoires -\n");
+	/*
+	printf("- Generation de nombres aleatoires -\n");
 	printf("rand du C : %u \n",output_rand); 
 	printf("Von Neumann : %u\n",output_VN);
 	printf("Mersenne Twister : %u\n",output_MT);
 	printf("AES : %u\n",output_AES);
 	printf("4 bits de poids fort : %u\n", output_rand_fort);
-	printf("4 bits de poids faible : %u\n", output_rand_faible);*/
-	int j; 
+	printf("4 bits de poids faible : %u\n", output_rand_faible);
+	*/
+	
+
 
 	//------------------------PARTIE3
 	
@@ -440,41 +479,43 @@ int main()
 	double tpsMoyen = Calcul_temps_moyen(a); 
 	
 		
-	/*printf("\n\n\nARRIVEE  \n"); 
-	for(j = 0; j<a.taille_arrivee; j++)
+	fichier = fopen("fileMM1.txt","w");
+	if(fichier != NULL)
 	{
-		printf("%f ",a.arrivee[j]);
-		printf(" \t\t%f \n",a.depart[j]); 	
-	}*/
-	
-	/*printf("\n\n\nDepart  \n"); 
+	int j; 
+	fprintf(fichier,"\n\n\ Arrivee               Departs  \n"); 
 	for(j = 0; j<a.taille_depart; j++)
 	{
-		printf("%f ",a.depart[j]); 	
-	}*/
+		fprintf(fichier,"%f ",a.arrivee[j]);
+		fprintf(fichier," \t\t%f \n",a.depart[j]); 	
+	}
+	for(j = a.taille_depart; j<a.taille_arrivee; j++)
+	{
+		fprintf(fichier,"%f \t\t \n ",a.arrivee[j]);
+	}
 	
-	//printf("\n\n\nEvolution \n\n"); 
-	printf("Temps;Nombre\n"); 
+	
+	fprintf(fichier,"\n\n\n Evolution \n\n");
+	 
+	fprintf(fichier,"Temps    \t\t\t Nombre\n"); 
 	for(j = 0; j<(a.taille_arrivee+a.taille_depart) ; j++)
 	{
-		printf("%f;%d\n",e.temps[j],e.nombre[j]); 
+		fprintf(fichier,"%f \t\t\t %d\n",e.temps[j],e.nombre[j]); 
 	}
+		
 	
-	/*printf("\n\n\nNombre \n"); 
-	for(j = 0; j<(a.taille_arrivee+a.taille_depart ) ; j++)
-	{
-		printf("%d ",e.nombre[j]); 	
+	fprintf(fichier,"\n\n\n\n\nNb Moyen : %f \n\n",nbMoyen); 
+	fprintf(fichier,"\nTps Moyen: %f \n\n",tpsMoyen);
 	}
+	fclose(fichier);
 	
-	*/
-	printf("\nNb Moyen : %f \n\n",nbMoyen); 
-	printf("\nTps Moyen: %f \n\n",tpsMoyen);
-
+	
+	
+	
 	
 	free(a.arrivee); 
 	free(a.depart); 
 	free(e.temps); 
 	free(e.nombre); 
-	//Alea();
 	return 0;
 }

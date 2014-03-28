@@ -40,4 +40,7 @@ CVS
 *.i*86
 *.x86_64
 *.hex
+
+# Sorties 
+codes_fournis/*.txt
 simul
