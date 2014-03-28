@@ -11,7 +11,30 @@
 #define OLDRAND_MAX 2147483647
 #define NB_IT 1024
 
+
+ 
+struct file_attente
+{
+	double * arrivee; 
+	int taille_arrivee; 
+	double *depart;
+	int taille_depart;
+}; 
+typedef struct file_attente file_attente;
+
+struct evolution
+{
+	double *temps; 
+	unsigned int *nombre; 
+};
+typedef struct evolution evolution; 
+
+
+
 static unsigned int next;
+static u32 Kex[NB*NR];   //Pour AES
+static u32 Px[NB];   //Pour AES
+
 
 int rdtsc()
 {
@@ -122,16 +145,147 @@ double Run(int n, unsigned int * tab){
 
 
 double Alea(){
-    struct mt19937p mt; // Pour Mersenne-Twister
-	int tmp = rand();
-    sgenrand(time(NULL)+(tmp), &mt); // Mersenne-Twister
+	return (double) AES(Px, Kex) / UINT32_MAX ;
+}
 
+double Exponentielle(double lambda)
+{
+	return -(log(1-Alea())/lambda);
+}
 
-	unsigned int i =genrand(&mt); // Mersenne-Twister
+file_attente FileMM1 (double lambda, double mu, double D)
+{
+		//Construction de la file d'arrivee
+		double *arrivee = (double*)calloc(ARRAY_MAX_SIZE, sizeof(double)); 
+		int taille_arrivee = 0; 
+		double ti = 0.0f; 
+
+		for(;;)
+		{
+			ti += Exponentielle(lambda); 
+			if(ti>D)
+				break;
+			arrivee[taille_arrivee] = ti ; 
+			taille_arrivee ++; 
+		}
+		
+		//Construction de la file de départ
+		double *depart = (double*)calloc(ARRAY_MAX_SIZE,sizeof(double));
+		int taille_depart = 0;
+		double tprimei = 0;
+		
+		
+		//On remplit pour le premier client séparement
+		tprimei = arrivee[0] + Exponentielle(mu) ; 
+		depart[0] = tprimei; 
+		taille_depart++; 
+		
+		
+		int i; 
+		for(i = 1 ; i<taille_arrivee; i++)
+		{
+			double tiplusUn = arrivee[i];
+			tprimei = depart[i-1]; 
+			
+			if(tiplusUn > tprimei ) 
+			{
+				depart[i] = arrivee[i] + Exponentielle(mu); 
+				if(depart[i] < D){
+					taille_depart++; 
+				}
+			}else
+			{
+				depart[i] = depart[i-1] + Exponentielle(mu); 
+				if(depart[i] < D){
+					taille_depart++; 
+				}			
+			}
+		}
+
+		
+		
+		file_attente a = {arrivee,taille_arrivee,depart, taille_depart};
+		return a; 
+}
+
+evolution Calcul_evolution(file_attente a)
+{
+
+	double *temps = (double*)calloc(a.taille_arrivee + a.taille_depart,sizeof(double));
+	int *nombre = (int*)calloc(a.taille_arrivee + a.taille_depart,sizeof(double));
 	
-	double f = (float)i ; // sur nb max possible en mersenne
-	printf("Le nombre est %d \n", i);
-    return 0.0f;
+	int indiceArrivee = 0; 
+	int indiceDepart = 0; 
+	int indiceEvolution = 0; 
+	
+
+	//Premier tour de boucle 
+	temps[indiceEvolution] = a.arrivee[indiceArrivee]; 
+	nombre[indiceEvolution] = 1; 
+	indiceEvolution++;
+	indiceArrivee++; 
+
+	
+	//Autres
+	while( (indiceArrivee+indiceDepart) < (a.taille_arrivee + a.taille_depart) )
+	{
+		//Si on a atteint la fin du tableau d'arrivee, on remplit qu'avec les depart
+		//Rq: On ne peut jamais atteindre la fin du tableau départ avant celui d'arrivee
+		if(indiceArrivee == a.taille_arrivee){
+			temps[indiceEvolution] = a.depart[indiceDepart]; 
+			nombre[indiceEvolution] = nombre[indiceEvolution-1] - 1; 
+			indiceDepart++; 
+		}else{
+	
+			if(a.arrivee[indiceArrivee] < a.depart[indiceDepart] )
+			{
+				temps[indiceEvolution] = a.arrivee[indiceArrivee]; 
+				nombre[indiceEvolution] = nombre[indiceEvolution-1] + 1; 
+				indiceArrivee++; 
+			}else
+			{
+				temps[indiceEvolution] = a.depart[indiceDepart]; 
+				nombre[indiceEvolution] = nombre[indiceEvolution-1] - 1; 
+				indiceDepart++; 
+			}
+			
+		}
+		
+		indiceEvolution++;
+	}
+	
+	evolution e = {temps,nombre};
+	return e; 
+}
+
+
+double Calcul_nombre_moyen(evolution e, int taille)
+{
+	double nbMoyen = 0; 
+	double denominateur = 0; 
+	
+	int i; 
+	
+	for(i =0; i< taille-1 ; i++)
+	{
+		nbMoyen += ((e.temps[i+1] - e.temps[i])* (double) (e.nombre[i]));
+		denominateur += (e.temps[i+1] - e.temps[i]) ; 
+	}
+
+	return nbMoyen/denominateur; 
+}
+
+double Calcul_temps_moyen(file_attente a)
+{
+	double tpsMoyen = 0; 
+	
+	int i ; 
+	for ( i = 0 ; i < a.taille_depart ; i++)
+	{
+		tpsMoyen += a.depart[i] - a.arrivee[i]; 
+	}	
+	
+	return tpsMoyen/(double)a.taille_depart ; 
 }
 
 int main()
@@ -139,7 +293,7 @@ int main()
 	word16 x=1111; // nombre entre 1000 et 9999 pour Von Neumann
 	struct mt19937p mt; // Pour Mersenne-Twister
 	int tmp = rand(), seed, i; // Pour Mersenne-Twister
-	u32 Kx[NK], Kex[NB*NR], Px[NB]; // pour l'AES
+	u32 Kx[NK]; // pour l'AES, le reste en haut en static
 	unsigned int Test[NB_IT],tabFort[NB_IT], tabFaible[NB_IT], tabVN[NB_IT], tabMT[NB_IT], tabAES[NB_IT];
 
 	unsigned int output_rand; // sortie du rand du C	
@@ -174,7 +328,7 @@ int main()
 		
 		
 		  //---------------------Test Frequence monobit
-		for (i=0; i < NB_IT; i++)
+		/*for (i=0; i < NB_IT; i++)
 		{
 			Test[i] = 619;
 			output_rand = oldrand(); // rand du C
@@ -184,32 +338,25 @@ int main()
 			tabVN[i] = Von_Neumann(&x); // Von Neumann
 			tabMT[i] = genrand(&mt); // Mersenne-Twister
 			tabAES[i] = AES(Px, Kex); // AES
-		}
+		}*/
 		
 		
-		/*
-	printf("Von Neumann : %f\n",Frequency(13,tabVN));
+		
+	/*printf("Von Neumann : %f\n",Frequency(13,tabVN));
 	printf("Mersenne Twister : %f\n",Frequency(32,tabMT));
 	printf("AES : %f\n",Frequency(32,tabAES));
 	printf("4 bits de poids fort : %f\n", Frequency(4,tabFort));
-	printf("4 bits de poids faible : %f\n", Frequency(4,tabFaible));
-	*/
+	printf("4 bits de poids faible : %f\n", Frequency(4,tabFaible));*/
+	
 	
 	
 		//---------------------Test RUN
-	printf("Test : %f\n",Run(10,Test));
+	/*printf("Test : %f\n",Run(10,Test));
 	printf("Von Neumann : %f\n",Run(13,tabVN));
 	printf("Mersenne Twister : %f\n",Run(32,tabMT));
 	printf("AES : %f\n",Run(32,tabAES));
 	printf("4 bits de poids fort : %f\n", Run(4,tabFort));
-	printf("4 bits de poids faible : %f\n", Run(4,tabFaible));
-	
-	
-	
-	
-	
-	
-	
+	printf("4 bits de poids faible : %f\n", Run(4,tabFaible));*/
 	
 	//}
 	/*close(fichier);
@@ -276,9 +423,58 @@ int main()
 	printf("AES : %u\n",output_AES);
 	printf("4 bits de poids fort : %u\n", output_rand_fort);
 	printf("4 bits de poids faible : %u\n", output_rand_faible);*/
+	int j; 
+
+	//------------------------PARTIE3
+	
+	
+	//printf("%f\n",Exponentielle(1));
+	//printf("%f\n",Alea());
 
 	
-	Alea();
-	Alea();
+	
+	file_attente a = FileMM1(0.2f,0.33f,180.0f);
+	file_attente b = FileMM1(0.2f,2*0.33f,180.0f);
+	evolution e = Calcul_evolution(a);
+	double nbMoyen = Calcul_nombre_moyen(e, a.taille_arrivee+a.taille_depart);
+	double tpsMoyen = Calcul_temps_moyen(a); 
+	
+		
+	/*printf("\n\n\nARRIVEE  \n"); 
+	for(j = 0; j<a.taille_arrivee; j++)
+	{
+		printf("%f ",a.arrivee[j]);
+		printf(" \t\t%f \n",a.depart[j]); 	
+	}*/
+	
+	/*printf("\n\n\nDepart  \n"); 
+	for(j = 0; j<a.taille_depart; j++)
+	{
+		printf("%f ",a.depart[j]); 	
+	}*/
+	
+	//printf("\n\n\nEvolution \n\n"); 
+	printf("Temps;Nombre\n"); 
+	for(j = 0; j<(a.taille_arrivee+a.taille_depart) ; j++)
+	{
+		printf("%f;%d\n",e.temps[j],e.nombre[j]); 
+	}
+	
+	/*printf("\n\n\nNombre \n"); 
+	for(j = 0; j<(a.taille_arrivee+a.taille_depart ) ; j++)
+	{
+		printf("%d ",e.nombre[j]); 	
+	}
+	
+	*/
+	printf("\nNb Moyen : %f \n\n",nbMoyen); 
+	printf("\nTps Moyen: %f \n\n",tpsMoyen);
+
+	
+	free(a.arrivee); 
+	free(a.depart); 
+	free(e.temps); 
+	free(e.nombre); 
+	//Alea();
 	return 0;
 }
