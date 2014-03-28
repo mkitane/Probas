@@ -15,5 +15,5 @@ mersenne_twister.o: mersenne_twister.h mersenne_twister.c
 von_neumann.o: von_neumann.h von_neumann.c
 
 clean:
-	rm *.o simu
+	rm *.o simul
 
