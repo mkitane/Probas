@@ -1,0 +1,440 @@
+
+
+-----Test 0----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.465877
+Frequence AES : 0.413590
+Frequence 4 bits de poids fort : 0.707660
+Frequence 4 bits de poids faible : 0.731034
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.500329
+Run AES : 0.740295
+Run 4 bits de poids fort : 0.552666
+Run 4 bits de poids faible : 0.531959
+
+
+-----Test 1----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.207838
+Frequence AES : 0.036782
+Frequence 4 bits de poids fort : 0.684559
+Frequence 4 bits de poids faible : 0.274065
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.269200
+Run AES : 0.150860
+Run 4 bits de poids fort : 0.189334
+Run 4 bits de poids faible : 0.199974
+
+
+-----Test 2----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.521643
+Frequence AES : 0.095250
+Frequence 4 bits de poids fort : 0.085660
+Frequence 4 bits de poids faible : 0.639248
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.877072
+Run AES : 0.228438
+Run 4 bits de poids fort : 0.975052
+Run 4 bits de poids faible : 0.975069
+
+
+-----Test 3----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.407308
+Frequence AES : 0.000640
+Frequence 4 bits de poids fort : 0.364804
+Frequence 4 bits de poids faible : 0.472295
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.859681
+Run AES : 0.658418
+Run 4 bits de poids fort : 0.900504
+Run 4 bits de poids faible : 0.684521
+
+
+-----Test 4----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.325450
+Frequence AES : 0.160568
+Frequence 4 bits de poids fort : 0.133614
+Frequence 4 bits de poids faible : 0.684559
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.698971
+Run AES : 0.514464
+Run 4 bits de poids fort : 0.150352
+Run 4 bits de poids faible : 0.754651
+
+
+-----Test 5----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.851014
+Frequence AES : 0.283851
+Frequence 4 bits de poids fort : 0.707660
+Frequence 4 bits de poids faible : 0.222939
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.304178
+Run AES : 0.320026
+Run 4 bits de poids fort : 1.000000
+Run 4 bits de poids faible : 0.661634
+
+
+-----Test 6----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.595883
+Frequence AES : 0.157299
+Frequence 4 bits de poids fort : 0.364804
+Frequence 4 bits de poids faible : 0.975070
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.097460
+Run AES : 0.196095
+Run 4 bits de poids fort : 0.141821
+Run 4 bits de poids faible : 0.661749
+
+
+-----Test 7----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.019166
+Frequence AES : 0.010369
+Frequence 4 bits de poids fort : 0.189351
+Frequence 4 bits de poids faible : 0.639248
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.682639
+Run AES : 0.682629
+Run 4 bits de poids fort : 0.552512
+Run 4 bits de poids faible : 0.975069
+
+
+-----Test 8----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.439287
+Frequence AES : 0.160568
+Frequence 4 bits de poids fort : 0.552679
+Frequence 4 bits de poids faible : 0.552679
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.394906
+Run AES : 0.401054
+Run 4 bits de poids fort : 0.065196
+Run 4 bits de poids faible : 0.900515
+
+
+-----Test 9----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.748659
+Frequence AES : 0.690816
+Frequence 4 bits de poids fort : 0.060793
+Frequence 4 bits de poids faible : 1.000000
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.626870
+Run AES : 0.765465
+Run 4 bits de poids fort : 0.616773
+Run 4 bits de poids faible : 0.975070
+
+
+-----Test 10----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.955945
+Frequence AES : 0.674599
+Frequence 4 bits de poids fort : 0.003309
+Frequence 4 bits de poids faible : 0.778519
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.723674
+Run AES : 0.833727
+Run 4 bits de poids fort : 0.415522
+Run 4 bits de poids faible : 0.472286
+
+
+-----Test 11----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.181264
+Frequence AES : 0.825115
+Frequence 4 bits de poids fort : 0.169131
+Frequence 4 bits de poids faible : 0.802587
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.075254
+Run AES : 0.707176
+Run 4 bits de poids fort : 0.875779
+Run 4 bits de poids faible : 0.778515
+
+
+-----Test 12----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.773912
+Frequence AES : 0.196122
+Frequence 4 bits de poids fort : 0.069909
+Frequence 4 bits de poids faible : 0.684559
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.472660
+Run AES : 0.929564
+Run 4 bits de poids fort : 0.638979
+Run 4 bits de poids faible : 1.000000
+
+
+-----Test 13----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.955945
+Frequence AES : 0.135816
+Frequence 4 bits de poids fort : 0.661749
+Frequence 4 bits de poids faible : 0.754661
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.507386
+Run AES : 0.698960
+Run 4 bits de poids fort : 0.159630
+Run 4 bits de poids faible : 0.900521
+
+
+-----Test 14----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.859684
+Frequence AES : 0.135816
+Frequence 4 bits de poids fort : 0.875836
+Frequence 4 bits de poids faible : 0.975070
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.465877
+Run AES : 0.550733
+Run 4 bits de poids fort : 0.950164
+Run 4 bits de poids faible : 0.085660
+
+
+-----Test 15----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.955945
+Frequence AES : 0.124600
+Frequence 4 bits de poids fort : 0.453255
+Frequence 4 bits de poids faible : 0.851269
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.859684
+Run AES : 0.196090
+Run 4 bits de poids fort : 0.595195
+Run 4 bits de poids faible : 0.060791
+
+
+-----Test 16----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.314696
+Frequence AES : 0.715409
+Frequence 4 bits de poids fort : 0.317311
+Frequence 4 bits de poids faible : 0.925308
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.132930
+Run AES : 0.912024
+Run 4 bits de poids fort : 0.707592
+Run 4 bits de poids faible : 0.573775
+
+
+-----Test 17----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.154081
+Frequence AES : 0.160568
+Frequence 4 bits de poids fort : 0.851269
+Frequence 4 bits de poids faible : 0.778519
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.773898
+Run AES : 0.264435
+Run 4 bits de poids fort : 0.975070
+Run 4 bits de poids faible : 0.434647
+
+
+-----Test 18----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.299008
+Frequence AES : 0.132942
+Frequence 4 bits de poids fort : 0.085660
+Frequence 4 bits de poids faible : 0.595246
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.773904
+Run AES : 0.207806
+Run 4 bits de poids fort : 0.150282
+Run 4 bits de poids faible : 0.434624
+
+
+-----Test 19----- 
+
+
+
+ Frequences 
+
+Frequence Von Neumann : 0.000000
+Frequence Mersenne Twister : 0.432778
+Frequence AES : 0.903268
+Frequence 4 bits de poids fort : 0.434655
+Frequence 4 bits de poids faible : 0.472295
+
+
+ Run 
+
+Run Von Neumann : 0.000000
+Run Mersenne Twister : 0.104340
+Run AES : 0.773912
+Run 4 bits de poids fort : 0.802559
+Run 4 bits de poids faible : 0.925298
