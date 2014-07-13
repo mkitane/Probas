@@ -1,5 +1,5 @@
 #Probas
-Application of Pseudorandom number genertors and test of their efficacities.
+Application of Pseudorandom number generators and test of their efficacities.
 
 Application of wait queue simulations.
 
